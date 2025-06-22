@@ -221,6 +221,7 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 
+<<<<<<< HEAD
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -251,3 +252,11 @@ $RECYCLE.BIN/
 .gitconfig
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,python
+=======
+# Cursor e
+#  Cursor is an AI-powered code editor. `.cursorignore` specifies files/directories to
+#  exclude from AI features like autocomplete and code analysis. Recommended for sensitive data
+#  refer to https://docs.cursor.com/context/ignore-files
+.cursorignore
+.cursorindexingignore
+>>>>>>> 1d12cfcd7d7fd7c956e2b69e325aad94bd742593
