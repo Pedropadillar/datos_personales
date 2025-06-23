@@ -39,7 +39,7 @@ Examina detenidamente el documento subido. Extrae los siguientes datos personale
 - DNI
 
 Para la dirección busca y concatena los siguientes campos del archivo con el siguiente formato de texto
-Direccion Código postal, Localidad (Provincia)
+Direccion, Localidad (Código postal Provincia))
 
 Si algún dato no está presente, asigna null. Donde pone DNI debes buscar CIF/NIF/NIE/Otro y devolver el número completo.
 
