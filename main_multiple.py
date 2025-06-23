@@ -19,9 +19,12 @@ client = openai.OpenAI(
 def extract_text_from_file(file_bytes, mimetype):
     text = ''
     if mimetype == 'application/pdf':
-        with fitz.open(stream=file_bytes, filetype='pdf') as doc:
+        doc = fitz.open(stream=file_bytes, filetype='pdf')
+        try:
             for page in doc:
                 text += page.get_text()
+        finally:
+            doc.close()
     else:
         text = file_bytes.decode('utf-8', errors='replace')
     return text
@@ -103,7 +106,7 @@ def extraer_datos(): #extraemos los datos personales
 
 @app.route('/exportar_csv')
 def exportar_csv():
-   
+
     results = session.get('results', [])
     output = io.StringIO()
     writer = csv.writer(output)
