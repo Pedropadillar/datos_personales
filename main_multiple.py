@@ -38,6 +38,9 @@ Examina detenidamente el documento subido. Extrae los siguientes datos personale
 - direccion
 - DNI
 
+Para la dirección busca y concatena los siguientes campos del archivo con el siguiente formato de texto
+Direccion Código postal, Localidad (Provincia)
+
 Si algún dato no está presente, asigna null. Donde pone DNI debes buscar CIF/NIF/NIE/Otro y devolver el número completo.
 
 Aquí está el texto:
@@ -57,7 +60,7 @@ Aquí está el texto:
         temperature=0.0,
     )
     raw = response.choices[0].message.content.strip()
-    print('RESPUESTA CRUDA DEL MODELO:', raw)
+    #print('RESPUESTA CRUDA DEL MODELO:', raw)
     # Si hay razonamiento, intenta quedarte solo con el primer bloque JSON
     if '{' in raw and '}' in raw:
         raw_json = raw[raw.find('{'):raw.rfind('}')+1]
