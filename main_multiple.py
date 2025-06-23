@@ -31,7 +31,7 @@ def extract_text_from_file(file_bytes, mimetype):
 
 def extract_personal_data(content_text):
     prompt = f"""
-Extrae los siguientes datos personales del texto y responde **SOLO** con un JSON con estas claves, sin ninguna explicación ni razonamiento, sin ningún texto adicional, únicamente el JSON:
+Examina detenidamente el documento subido. Extrae los siguientes datos personales del texto y responde **SOLO** con un JSON con estas claves, sin ninguna explicación ni razonamiento, sin ningún texto adicional, únicamente el JSON:
 - nombre_completo
 - email
 - telefono
