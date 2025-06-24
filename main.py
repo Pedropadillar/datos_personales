@@ -13,7 +13,7 @@ app.secret_key = "una_clave_secreta_que_tu_quieras"  # Necesario para sesión
 
 client = openai.OpenAI(
     base_url="http://localhost:1234/v1",
-    api_key="not-needed"  
+    api_key="not-needed"
 )
 
 def extract_text_from_file(file_bytes, mimetype):
