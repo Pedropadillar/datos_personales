@@ -117,14 +117,14 @@ def exportar_csv():
     writer.writerow(['Archivo', 'Nombre', 'Email', 'Teléfono', 'Dirección', 'DNI'])
     for r in results:
         d = r['data']
-        direccion = d.get('direccion')
+        direccion = d.get('Direccion')
         # Si es dict, conviértelo a string
         if isinstance(direccion, dict):
             direccion = ', '.join([f"{k}: {v}" for k, v in direccion.items()])
         writer.writerow([
             r['filename'],
-            d.get('nombre'), d.get('email'), d.get('telefono'),
-            direccion, d.get('dni')
+            d.get('Nombre'), d.get('Email'), d.get('Telefono'),
+            direccion, d.get('DNI')
         ])
     # Añade el BOM al principio para Excel
     csv_data = '\ufeff' + output.getvalue()
@@ -178,7 +178,7 @@ def exportar_pdf():
     for r in results:
         d = r['data']
         # Dirección postal: dict => string bonito
-        direccion = d.get('direccion', '') or ''
+        direccion = d.get('Direccion', '') or ''
         if isinstance(direccion, dict):
             direccion = ', '.join([f"{k}: {v}" for k, v in direccion.items()])
         else:
@@ -187,9 +187,9 @@ def exportar_pdf():
         DNI = d.get('DNI', '') or ''
         data.append([
             Paragraph(str(r['filename']), styleN),
-            Paragraph(str(d.get('nombre', '') or ''), styleN),
-            Paragraph(str(d.get('email', '') or ''), styleN),
-            Paragraph(str(d.get('telefono', '') or ''), styleN),
+            Paragraph(str(d.get('Nombre', '') or ''), styleN),
+            Paragraph(str(d.get('Email', '') or ''), styleN),
+            Paragraph(str(d.get('Telefono', '') or ''), styleN),
             Paragraph(direccion, styleN),
             Paragraph(DNI, styleN)
         ])
@@ -234,10 +234,10 @@ def exportar_docx():
         d = r['data']
         row_cells = table.add_row().cells
         row_cells[0].text = str(r['filename'])
-        row_cells[1].text = str(d.get('nombre'))
-        row_cells[2].text = str(d.get('email'))
-        row_cells[3].text = str(d.get('telefono'))
-        row_cells[4].text = str(d.get('direccion'))
+        row_cells[1].text = str(d.get('Nombre'))
+        row_cells[2].text = str(d.get('Email'))
+        row_cells[3].text = str(d.get('Telefono'))
+        row_cells[4].text = str(d.get('Direccion'))
         row_cells[5].text = str(d.get('DNI'))
     buffer = io.BytesIO()
     doc.save(buffer)
