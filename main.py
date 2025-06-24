@@ -255,5 +255,4 @@ if __name__ == '__main__':
 # Si se utiliza un entorno virtual en desarrollo, para activarlo una vez creado:
 # Windows: venv\Scripts\activate
 # Linux/Mac: source venv/bin/activate
-# Para ejecutar el script en desarrollo:
-# python main.py
+# Para ejecutar el script en desarrollo:# python main.py
