@@ -21,9 +21,8 @@ Desde la página web se pueden subir uno o varios archivos pdf. Una vez que la a
 # Utilizar el ejecutable .exe
 
 1. Ejecutar LM Studio
-2. Cargar un modelo. En el main.py tengo configurado "deepseek-r1-0528-qwen3-8b@q8_0"
+2. Cargar un modelo de IA. En el main.py tengo configurado "deepseek-r1-0528-qwen3-8b@q8_0"
 3. Activar el server de LM Studio
-4. Ejecutar la aplicación dist/main.exe
-5. Abrir la url http://127.0.0.1:8000 en un navegador
-6. Usar
+4. Ejecutar la aplicación dist/main.exe. Abrirá el navegador y una pequeña ventana para poder cerrar la aplicación
+5. Usar
 

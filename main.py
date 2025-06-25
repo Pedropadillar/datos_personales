@@ -7,6 +7,11 @@ import csv
 from reportlab.platypus import SimpleDocTemplate, Table
 from reportlab.lib.pagesizes import letter
 from docx import Document
+import threading
+import time
+import webbrowser
+import sys, os
+import tkinter as tk
 
 app = Flask(__name__, template_folder="templates")
 app.secret_key = "una_clave_secreta_que_tu_quieras"  # Necesario para sesión
@@ -22,7 +27,7 @@ def extract_text_from_file(file_bytes, mimetype):
         doc = fitz.open(stream=file_bytes, filetype='pdf')
         try:
             for page in doc:
-                text += page.get_text()
+                text += page.get_text() # type: ignore[reportAttributeAccessIssue]
         finally:
             doc.close()
     else:
@@ -60,7 +65,8 @@ Aquí está el texto:
         ],
         temperature=0.0,
     )
-    raw = response.choices[0].message.content.strip()
+    #raw = response.choices[0].message.content.strip()
+    raw = (response.choices[0].message.content or "").strip()
     #print('RESPUESTA CRUDA DEL MODELO:', raw)
     # Si hay razonamiento, intenta quedarte solo con el primer bloque JSON
     if '{' in raw and '}' in raw:
@@ -249,9 +255,45 @@ def exportar_docx():
         mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     )
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000, debug=True)
+def open_browser():
+    # Pequeña espera para que Flask arranque
+    time.sleep(1)
+    webbrowser.open('http://127.0.0.1:8000')
 
+def start_flask():
+    # Arranca Flask en este hilo
+    app.run(host='0.0.0.0', port=8000, debug=False)
+
+if __name__ == '__main__':
+    # 1) Lanzar servidor Flask en hilo
+    threading.Thread(target=start_flask, daemon=True).start()
+    # 2) Lanzar navegador en hilo
+    threading.Thread(target=open_browser, daemon=True).start()
+
+    # 3) Crear ventana tkinter para el icono y cerrar
+    root = tk.Tk()
+    root.title("Datos personales")
+    # base_path = os.path.abspath(os.path.dirname(__file__))
+    # icon_path = os.path.join(base_path, 'icono.ico')  # <— ¡Define icon_path aquí!
+    # root.iconbitmap(icon_path)       # tu .ico en el mismo directorio
+    root.geometry("200x80")
+    tk.Label(root, text="Servidor en localhost:8000").pack(pady=10)
+    tk.Button(root, text="Cerrar app", command=lambda: sys.exit(0)).pack()
+    root.mainloop()
+
+# if getattr(sys, 'frozen', False):
+#     # Aunque _MEIPASS no exista en los stubs, en runtime PyInstaller lo crea
+#     base_path = getattr(sys, '_MEIPASS', os.path.abspath('.'))
+# else:
+#     base_path = os.path.abspath('.')
+
+"""
+if __name__ == '__main__':
+    # Lanza el thread que abrirá el navegador
+    threading.Thread(target=open_browser, daemon=True).start()
+    # Arranca el servidor Flask (debug=False para producción)
+    app.run(host='0.0.0.0', port=8000, debug=False)
+"""
 # Si se utiliza un entorno virtual en desarrollo, para activarlo una vez creado:
     # Windows: venv\Scripts\activate
     # Linux/Mac: source venv/bin/activate
@@ -259,7 +301,7 @@ if __name__ == '__main__':
 
 # Para hacer un ejecutable en Windows:
     # pip install pyinstaller
-    # pyinstaller --onefile datos_personales.py --add-data "templates:templates" --windowed --icon=icono.ico
+    # pyinstaller --onefile --windowed --add-data "templates;templates" --add-data "README.md;." --icon=icono.ico main.py
     # Para incluir un icono (lo dejo en el repositorio) se incluye --icon=icono.ico
     # El ejecutable se generará en la carpeta dist.
 # Para ejecutar el ejecutable: dist\datos_personales.exe
