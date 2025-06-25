@@ -7,7 +7,7 @@ import csv
 from reportlab.platypus import SimpleDocTemplate, Table
 from reportlab.lib.pagesizes import letter
 from docx import Document
- 
+
 app = Flask(__name__, template_folder="templates")
 app.secret_key = "una_clave_secreta_que_tu_quieras"  # Necesario para sesión
 

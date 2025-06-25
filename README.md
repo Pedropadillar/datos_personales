@@ -8,3 +8,22 @@ La aplicación funciona con LM Studio como servidor de IA. Se ha utilizado el mo
 El repositorio incluye un modelo de instancia con la que se ha configurado la aplicación. Si se utiliza otro tipo de formulario o modelo deberá comprobarse y, en su caso, ir adaptando el prompt en main.py.
 
 Desde la página web se pueden subir uno o varios archivos pdf. Una vez que la aplicación da los resultados, aparecen unos botones para exportarlos a pdf, csv o docx.
+
+# Hacer un ejecutable en Windows:
+
+    pip install pyinstaller
+    pyinstaller --onefile main.py --add-data "templates:templates" --windowed --icon=icono.ico
+
+    Para incluir un icono (lo dejo en el repositorio) se incluye la última instrucción anterior --icon=icono.ico
+    El ejecutable se generará en la carpeta dist/.
+    
+
+# Utilizar el ejecutable .exe
+
+1. Ejecutar LM Studio
+2. Cargar un modelo. En el main.py tengo configurado "deepseek-r1-0528-qwen3-8b@q8_0"
+3. Activar el server de LM Studio
+4. Ejecutar la aplicación dist/main.exe
+5. Abrir la url http://127.0.0.1:8000 en un navegador
+6. Usar
+
