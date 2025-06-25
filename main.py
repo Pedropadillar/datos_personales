@@ -253,6 +253,13 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)
 
 # Si se utiliza un entorno virtual en desarrollo, para activarlo una vez creado:
-# Windows: venv\Scripts\activate
-# Linux/Mac: source venv/bin/activate
+    # Windows: venv\Scripts\activate
+    # Linux/Mac: source venv/bin/activate
 # Para ejecutar el script en desarrollo:# python main.py
+
+# Para hacer un ejecutable en Windows:
+    # pip install pyinstaller
+    # pyinstaller --onefile datos_personales.py --add-data "templates:templates" --windowed --icon=icono.ico
+    # Para incluir un icono (lo dejo en el repositorio) se incluye --icon=icono.ico
+    # El ejecutable se generará en la carpeta dist.
+# Para ejecutar el ejecutable: dist\datos_personales.exe
